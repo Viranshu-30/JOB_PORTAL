@@ -15,6 +15,11 @@ The system addresses all specified requirements:
 - **Top Candidate Display**: Presents ranked candidates with similarity scores
 - **AI-Generated Summaries**: Integrates OpenAI GPT-3.5 for candidate fit analysis (Bonus requirement)
 
+  
+## Demonstration
+
+**Login Credentials**: admin / admin123 (HR Dashboard)
+
 ## Technical Architecture
 
 ### Core Matching Algorithm
@@ -173,11 +178,6 @@ The application is configured for production deployment with:
 
 **Flask Framework**: Lightweight architecture suitable for MVP development with clear extension paths for enterprise features.
 
-## Demonstration
-
-**Live Application**:[ [Deployment URL]](https://net-greer-csun-ec044ece.koyeb.app/)
-**Source Code**: [[GitHub Repository URL]](https://github.com/Viranshu-30/JOB_PORTAL)
-**Login Credentials**: admin / admin123 (HR Dashboard)
 
 ## Future Enhancements
 
