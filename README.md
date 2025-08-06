@@ -175,8 +175,8 @@ The application is configured for production deployment with:
 
 ## Demonstration
 
-**Live Application**: [Deployment URL]
-**Source Code**: [GitHub Repository URL]
+**Live Application**:[ [Deployment URL]](https://net-greer-csun-ec044ece.koyeb.app/)
+**Source Code**: [[GitHub Repository URL]](https://github.com/Viranshu-30/JOB_PORTAL)
 **Login Credentials**: admin / admin123 (HR Dashboard)
 
 ## Future Enhancements
