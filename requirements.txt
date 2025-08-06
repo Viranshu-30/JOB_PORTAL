@@ -1,16 +1,11 @@
-# Updated requirements.txt with AI API suppo
 Flask==2.2.5
-pymongo==4.5.0
-scikit-learn==1.3.0
-numpy==1.24.3
+pymongo[srv]==4.5.0
+scikit-learn==1.2.2
+numpy==1.21.6
 PyPDF2==3.0.1
 python-docx==0.8.11
-Werkzeug==2.3.7
-
-# AI API integrations (optional - uncomment to use)
-openai==0.28.1
-# anthropic==0.3.11
-
-# Additional dependencies for enhanced features
+Werkzeug==2.2.3
+openai==0.27.8
 requests==2.31.0
 python-dotenv==1.0.0
+sentence-transformers==2.2.2
