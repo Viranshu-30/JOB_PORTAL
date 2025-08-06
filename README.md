@@ -189,6 +189,3 @@ The application is configured for production deployment with:
 
 ---
 
-**Submitted for SproutsAI Machine Learning Engineer Internship Technical Assessment**
-
-This implementation demonstrates proficiency in machine learning, full-stack development, and production system design relevant to modern recruitment technology solutions.
