@@ -1,1 +1,2 @@
-# Updated requirements.txt with AI API support
+# Updated requirements.txt with AI API suppo
+Flask==2.3.3
