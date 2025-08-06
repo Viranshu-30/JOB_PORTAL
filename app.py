@@ -4,6 +4,7 @@ from bson.objectid import ObjectId
 from functools import wraps
 import pymongo
 import os
+from dotenv import load_dotenv
 import re
 import PyPDF2
 import docx
@@ -13,19 +14,26 @@ from io import StringIO
 from datetime import datetime
 from skill_matcher import score_resume_against_job_keywords
 
+load_dotenv()
+
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Replace for production
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
-# ✅ OpenAI API key
-openai.api_key = "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"
+app.config['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY')
+  # Debug: Check if secret key is loaded
+app.config['MONGODB_URI'] = os.getenv('MONGODB_URI')
+#app.config['DEBUG'] = os.getenv('DEBUG_MODE', 'False').lower() == 'true'
 
+# ✅ OpenAI API key
+openai.api_key = os.getenv("OPENAI_API_KEY")
+print(os.getenv("OPENAI_API_KEY"))  # Debug: Check if key is loaded
 # Sample HR credentials (replace with DB & hashing in production)
 HR_CREDENTIALS = {"admin": "admin123"}
 
 # MongoDB
-client = pymongo.MongoClient("mongodb+srv://viru:viru@cluster0.v8txqzr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+client = pymongo.MongoClient("" + os.getenv("MONGODB_URI"))
 db = client["job_portal"]
 jobs_collection = db["jobs"]
 applications_collection = db["applications"]
@@ -220,6 +228,8 @@ def view_job_applicants(job_id):
 @login_required
 def generate_summary_api(app_id):
     try:
+        print(f"[DEBUG] Generating summary for application: {app_id}")
+
         application = applications_collection.find_one({"_id": ObjectId(app_id)})
         if not application:
             return jsonify({"error": "Application not found"}), 404
@@ -232,8 +242,7 @@ def generate_summary_api(app_id):
         resume_text = application.get("resume_text", "")
         similarity_score = application.get("similarity_score", 0)
 
-        prompt = f"""
-You're an expert recruiter reviewing resumes for this role.
+        prompt = f"""You're an expert recruiter reviewing resumes for this role.
 
 Given the required skills:
 {keywords}
@@ -246,6 +255,7 @@ With a similarity score of {similarity_score:.1%}, write a short 2-line summary:
 - Highlight key relevant skills only
 """
 
+        print("[DEBUG] Sending request to OpenAI...")
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo-16k",
             messages=[{"role": "user", "content": prompt}],
@@ -253,8 +263,10 @@ With a similarity score of {similarity_score:.1%}, write a short 2-line summary:
             temperature=0.3
         )
         summary = response.choices[0].message.content.strip()
+        print("[DEBUG] Summary received from OpenAI.")
         return jsonify({"summary": summary})
     except Exception as e:
+        print(f"[ERROR] OpenAI summary generation failed: {e}")
         return jsonify({"error": str(e)}), 500
 
 @app.route('/hr/post_job', methods=['GET', 'POST'])
