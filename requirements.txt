@@ -5,7 +5,7 @@ numpy
 PyPDF2
 python-docx
 Werkzeug
-openai
+openai==0.28.1
 requests
 python-dotenv
 sentence-transformers
