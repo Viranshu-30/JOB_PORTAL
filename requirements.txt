@@ -6,7 +6,7 @@ numpy==1.24.3
 PyPDF2==3.0.1
 python-docx==0.8.11
 Werkzeug==2.3.7
-python-3.10.13
+python==3.10.13
 # AI API integrations (optional - uncomment to use)
 openai==0.28.1
 # anthropic==0.3.11
