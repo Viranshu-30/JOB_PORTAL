@@ -1,0 +1,122 @@
+<!-- templates/ats_results.html -->
+{% extends "base.html" %}
+
+{% block title %}ATS Results - Top Candidates{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-trophy"></i> Top Candidate Matches</h2>
+    <div>
+        <span class="badge bg-success fs-6">{{ candidates|length }} Top Candidates</span>
+        <span class="badge bg-info fs-6">{{ total_analyzed }} Total Analyzed</span>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-file-text"></i> Job Description Used for Analysis</h5>
+            </div>
+            <div class="card-body">
+                <div class="bg-light p-3 rounded">
+                    {{ job_description[:500] }}...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if candidates %}
+    {% for candidate in candidates %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h5 class="mb-0">
+                        <i class="fas fa-user"></i> {{ candidate.name }}
+                        <small class="text-muted">({{ candidate.email }})</small>
+                    </h5>
+                </div>
+                <div class="col-md-6 text-end">
+                    {% set score = candidate.similarity_score * 100 %}
+                    {% if score >= 70 %}
+                        <span class="similarity-score score-high">{{ "%.1f"|format(score) }}% Match</span>
+                    {% elif score >= 40 %}
+                        <span class="similarity-score score-medium">{{ "%.1f"|format(score) }}% Match</span>
+                    {% else %}
+                        <span class="similarity-score score-low">{{ "%.1f"|format(score) }}% Match</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <h6><i class="fas fa-brain"></i> AI Analysis Summary</h6>
+                    <div class="alert alert-light">
+                        {{ candidate.ai_summary }}
+                    </div>
+                    
+                    <h6><i class="fas fa-info-circle"></i> Application Details</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>Applied for:</strong> {{ candidate.job_title }}</li>
+                        <li><strong>Phone:</strong> {{ candidate.phone or 'Not provided' }}</li>
+                        <li><strong>Applied Date:</strong> {{ candidate.applied_date.strftime('%B %d, %Y') }}</li>
+                        <li><strong>Resume File:</strong> {{ candidate.resume_filename }}</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-light">
+                        <div class="card-body text-center">
+                            <h6>Match Score</h6>
+                            <div class="display-4 text-primary">{{ "%.0f"|format(score) }}%</div>
+                            {% if score >= 70 %}
+                                <span class="badge bg-success">Excellent Match</span>
+                            {% elif score >= 50 %}
+                                <span class="badge bg-warning">Good Match</span>
+                            {% elif score >= 30 %}
+                                <span class="badge bg-info">Fair Match</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Limited Match</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-3">
+                <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" 
+                        data-bs-target="#resume-{{ loop.index }}" aria-expanded="false">
+                    <i class="fas fa-file-text"></i> View Resume Content
+                </button>
+                
+                <div class="collapse mt-2" id="resume-{{ loop.index }}">
+                    <div class="card card-body bg-light">
+                        <h6>Resume Content Preview:</h6>
+                        <div class="small" style="max-height: 200px; overflow-y: auto;">
+                            {{ candidate.resume_text[:1000] }}...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="text-center mt-5">
+        <i class="fas fa-search fa-3x text-muted mb-3"></i>
+        <h3>No Candidates Found</h3>
+        <p>No resumes available for analysis. Make sure candidates have submitted applications.</p>
+    </div>
+{% endif %}
+
+<div class="d-flex justify-content-center mt-4">
+    <a href="{{ url_for('ats_system') }}" class="btn btn-primary">
+        <i class="fas fa-redo"></i> Run New Analysis
+    </a>
+    <a href="{{ url_for('hr_dashboard') }}" class="btn btn-secondary ms-2">
+        <i class="fas fa-home"></i> Back to Dashboard
+    </a>
+</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Apply - {{ job.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Application Form -->
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-paper-plane"></i> Apply for Position</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label">Full Name *</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email Address *</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" name="phone">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="resume" class="form-label">Resume *</label>
+                        <input type="file" class="form-control" id="resume" name="resume"
+                               accept=".pdf,.docx,.txt" required>
+                        <div class="form-text">Accepted formats: PDF, DOCX, TXT (Max 16MB)</div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('candidate_dashboard') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Submit Application
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Job Info Sidebar -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Job Details</h5>
+            </div>
+            <div class="card-body">
+                <h5 class="text-primary">{{ job.title }}</h5>
+                <p><strong>Company:</strong> {{ job.company }}</p>
+                <p><strong>Location:</strong> {{ job.location }}</p>
+                {% if job.salary_range %}
+                <p><strong>Salary:</strong> {{ job.salary_range }}</p>
+                {% endif %}
+                <hr>
+                <h6>Description:</h6>
+                <p class="small" style="white-space: pre-line; max-height: 500px; overflow-y: auto;">
+                    {{ job.description }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

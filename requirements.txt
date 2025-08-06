@@ -1,0 +1,16 @@
+# Updated requirements.txt with AI API support
+Flask==2.3.3
+pymongo==4.5.0
+scikit-learn==1.3.0
+numpy==1.24.3
+PyPDF2==3.0.1
+python-docx==0.8.11
+Werkzeug==2.3.7
+
+# AI API integrations (optional - uncomment to use)
+openai==0.28.1
+# anthropic==0.3.11
+
+# Additional dependencies for enhanced features
+requests==2.31.0
+python-dotenv==1.0.0

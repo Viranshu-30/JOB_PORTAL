@@ -1,0 +1,62 @@
+
+<!-- templates/index.html -->
+{% extends "base.html" %}
+
+{% block title %}Home - Job Portal{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="text-center mb-5">
+            <h1 class="display-4 mb-3">Welcome to Job Portal</h1>
+            <p class="lead">Your comprehensive platform for job searching and talent acquisition</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 card-hover">
+                    <div class="card-body text-center">
+                        <i class="fas fa-user-tie fa-3x text-primary mb-3"></i>
+                        <h3 class="card-title">For Job Seekers</h3>
+                        <p class="card-text">Browse job opportunities and apply with your resume</p>
+                        <a href="{{ url_for('candidate_dashboard') }}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-search"></i> Find Jobs
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 card-hover">
+                    <div class="card-body text-center">
+                        <i class="fas fa-users-cog fa-3x text-success mb-3"></i>
+                        <h3 class="card-title">For HR Professionals</h3>
+                        <p class="card-text">Post jobs, manage applications, and find the best candidates</p>
+                        <a href="{{ url_for('hr_dashboard') }}" class="btn btn-success btn-lg">
+                            <i class="fas fa-chart-line"></i> HR Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-4 text-center">
+                <i class="fas fa-rocket fa-2x text-info mb-3"></i>
+                <h5>Smart Matching</h5>
+                <p>AI-powered resume screening and candidate ranking</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <i class="fas fa-shield-alt fa-2x text-warning mb-3"></i>
+                <h5>Secure Platform</h5>
+                <p>Your data is safe and secure with us</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <i class="fas fa-clock fa-2x text-danger mb-3"></i>
+                <h5>Real-time Updates</h5>
+                <p>Get instant notifications about applications</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

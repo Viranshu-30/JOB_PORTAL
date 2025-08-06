@@ -1,0 +1,100 @@
+<!-- templates/ats_system.html -->
+{% extends "base.html" %}
+
+{% block title %}ATS System - Resume Screening{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-robot"></i> AI-Powered Resume Screening System</h3>
+                <p class="mb-0">Upload job description and analyze candidate resumes with AI matching</p>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="selected_job" class="form-label">Select Existing Job (Optional)</label>
+                                <select class="form-select" id="selected_job" name="selected_job">
+                                    <option value="">-- Select a Job --</option>
+                                    {% for job in jobs %}
+                                    <option value="{{ job._id }}">{{ job.title }} - {{ job.company }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="form-text">Choose an existing job or enter custom description below</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Analysis Scope</label>
+                                <div class="alert alert-info">
+                                    <i class="fas fa-info-circle"></i> 
+                                    System will analyze all uploaded resumes against the job description
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="job_description" class="form-label">Job Description</label>
+                        <textarea class="form-control" id="job_description" name="job_description" rows="8" 
+                                  placeholder="Enter detailed job description, requirements, and qualifications..."></textarea>
+                        <div class="form-text">Provide detailed job description for better matching accuracy</div>
+                    </div>
+                    
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>Note:</strong> The system will analyze all candidate resumes in the database. 
+                        Make sure you have uploaded candidate applications before running the analysis.
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('hr_dashboard') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        </a>
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-search"></i> Analyze Resumes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-lightbulb"></i> How ATS System Works</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 text-center">
+                        <i class="fas fa-file-text fa-2x text-primary mb-2"></i>
+                        <h6>1. Job Analysis</h6>
+                        <p class="small">System processes job description and extracts key requirements</p>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <i class="fas fa-file-pdf fa-2x text-success mb-2"></i>
+                        <h6>2. Resume Processing</h6>
+                        <p class="small">Extracts text from all uploaded resumes (PDF, DOCX, TXT)</p>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <i class="fas fa-brain fa-2x text-info mb-2"></i>
+                        <h6>3. AI Matching</h6>
+                        <p class="small">Uses machine learning to calculate similarity scores</p>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <i class="fas fa-trophy fa-2x text-warning mb-2"></i>
+                        <h6>4. Ranking</h6>
+                        <p class="small">Presents top candidates with detailed analysis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
