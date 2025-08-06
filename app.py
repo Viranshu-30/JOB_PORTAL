@@ -19,7 +19,7 @@ app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 # ✅ OpenAI API key
-openai.api_key = "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"
+openai.api_key = "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"
 
 # Sample HR credentials (replace with DB & hashing in production)
 HR_CREDENTIALS = {"admin": "admin123"}
