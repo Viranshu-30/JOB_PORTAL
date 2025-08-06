@@ -58,7 +58,7 @@ def score_resume_against_job_keywords(resume_phrases, job_keywords, threshold=0.
 ### Prerequisites
 
 - Python 3.10 or higher
-- MongoDB instance (local or cloud)
+- MongoDB instance (cloud)
 - OpenAI API key
 
 ### Environment Configuration
@@ -82,14 +82,18 @@ python app.py
 ### Dependencies
 
 ```
-Flask==2.3.3
-pymongo[srv]==4.5.0
-sentence-transformers==2.2.2
-scikit-learn==1.3.0
+Flask
+pymongo[srv]
+scikit-learn
+numpy
+PyPDF2
+python-docx
+Werkzeug
 openai==0.28.1
-PyPDF2==3.0.1
-python-docx==0.8.11
-python-dotenv==1.0.0
+requests
+python-dotenv
+sentence-transformers
+waitress
 ```
 
 ## Application Usage
